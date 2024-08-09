@@ -56,7 +56,7 @@ jobs:
         run: |
           # npm run script1
           # npm run script1
-          node script/url-checker.js --timeout $URL_CHECKER_TIMEOUT
+          node script/url-checker.js -t $URL_CHECKER_TIMEOUT
 
   # build:
   #   runs-on: ubuntu-latest
