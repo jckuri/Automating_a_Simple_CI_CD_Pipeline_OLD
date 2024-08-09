@@ -18,6 +18,9 @@ on:
         type: boolean
         default: true
 
+env:
+  URL_CHECKER_TIMEOUT: 30
+
 concurrency:
   group: the-workflow-group
   cancel-in-progress: true
@@ -49,14 +52,11 @@ jobs:
       - name: Run all linters
         run: npm run lint:all
 
-      - name: Set URL checker timeout
-        run: echo "URL_CHECKER_TIMEOUT = 30" >> $GITHUB_ENV
-
       - name: Run scripts
         run: |
           # npm run script/**
-          echo "GITHUB_ENV.URL_CHECKER_TIMEOUT = ${{ GITHUB_ENV.URL_CHECKER_TIMEOUT }}"
-          node script/url-checker.js -t $GITHUB_ENV.URL_CHECKER_TIMEOUT
+          echo "URL_CHECKER_TIMEOUT = $URL_CHECKER_TIMEOUT"
+          node script/url-checker.js -t $URL_CHECKER_TIMEOUT
 
   # build:
   #   runs-on: ubuntu-latest
