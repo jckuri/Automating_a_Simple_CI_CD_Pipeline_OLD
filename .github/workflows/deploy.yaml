@@ -55,7 +55,7 @@ jobs:
       - name: Run scripts
         run: |
           # npm run script/**
-          echo "GITHUB_ENV.URL_CHECKER_TIMEOUT = $GITHUB_ENV.URL_CHECKER_TIMEOUT"
+          echo "GITHUB_ENV.URL_CHECKER_TIMEOUT = ${{ GITHUB_ENV.URL_CHECKER_TIMEOUT }}"
           node script/url-checker.js -t $GITHUB_ENV.URL_CHECKER_TIMEOUT
 
   # build:
