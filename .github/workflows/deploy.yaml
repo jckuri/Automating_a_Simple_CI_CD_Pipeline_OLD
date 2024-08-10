@@ -101,13 +101,13 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    permissions: #write-all
-      contents: write
-      pages: write
-      id-token: write
-      # contents: read
-      pull-requests: write
-      repository-projects: write
+    permissions: write-all
+      # contents: write
+      # pages: write
+      # id-token: write
+      # # contents: read
+      # pull-requests: write
+      # repository-projects: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
