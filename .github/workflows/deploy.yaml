@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -102,18 +102,57 @@ jobs:
           name: build-artifact
           if-no-files-found: error
 
+  # deploy:
+  #   permissions: write-all
+  #     # contents: write
+  #     # pages: write
+  #     # id-token: write
+  #     # # contents: read
+  #     # pull-requests: write
+  #     # repository-projects: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   needs: build
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v5
+
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         # Upload entire repository
+  #         path: "_site"
+
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
+
+  #     - name: Report status
+  #       run: |
+  #         echo "# Deployment status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+  #         echo "Deployed ${{ github.ref }} to ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+
+  #     - name: Report issue
+  #       run: |
+  #         gh auth login --with-token <<<"${{ secrets.GITHUB_TOKEN }}"
+  #         DATE=$(date)
+  #         STATUS="${{ job.status }}"
+  #         ISSUE_TITLE="$DATE - Deployment: $STATUS"
+  #         URL="${{ steps.deployment.outputs.page_url }}"
+  #         ISSUE_BODY="URL: $URL"
+  #         echo "Title: $ISSUE_TITLE. Body: $ISSUE_BODY."
+  #         gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
+
   deploy:
-    permissions: write-all
-      # contents: write
-      # pages: write
-      # id-token: write
-      # # contents: read
-      # pull-requests: write
-      # repository-projects: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -127,24 +166,8 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: "_site"
+          path: "./_site"
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Report status
-        run: |
-          echo "# Deployment status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-          echo "Deployed ${{ github.ref }} to ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
-
-      - name: Report issue
-        run: |
-          gh auth login --with-token <<<"${{ secrets.GITHUB_TOKEN }}"
-          DATE=$(date)
-          STATUS="${{ job.status }}"
-          ISSUE_TITLE="$DATE - Deployment: $STATUS"
-          URL="${{ steps.deployment.outputs.page_url }}"
-          ISSUE_BODY="URL: $URL"
-          echo "Title: $ISSUE_TITLE. Body: $ISSUE_BODY."
-          gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
