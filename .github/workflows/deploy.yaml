@@ -102,9 +102,12 @@ jobs:
 
   deploy:
     permissions: #write-all
-      contents: read
+      # contents: read
       pages: write
       id-token: write
+      contents: read, write
+      pull-requests: write
+      repository-projects: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
