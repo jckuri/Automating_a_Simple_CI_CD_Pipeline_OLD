@@ -93,7 +93,8 @@ jobs:
 
       - name: Build site
         run: |
-          eleventy --path-prefix $PATH_PREFIX
+          eleventy --mode production
+          # eleventy --path-prefix $PATH_PREFIX
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
