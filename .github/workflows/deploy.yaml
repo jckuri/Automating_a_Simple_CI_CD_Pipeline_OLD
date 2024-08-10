@@ -137,9 +137,12 @@ jobs:
       - name: Report issue
         run: |
           gh auth login --with-token <<<"${{ secrets.GITHUB_TOKEN }}"
-          ISSUE_TITLE="issue_title"
-          ISSUE_BODY="issue body"
-          gh issue comment "$ISSUE_TITLE" --body "$ISSUE_BODY"
+          DATE=$(date)
+          STATUS="${{ job.status }}"
+          ISSUE_TITLE="$DATE - Deployment: $STATUS"
+          URL="${{ steps.deployment.outputs.page_url }}"
+          ISSUE_BODY="URL: $URL"
+          gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
 
   # deploy:
   #   environment: 
