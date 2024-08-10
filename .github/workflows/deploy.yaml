@@ -93,8 +93,7 @@ jobs:
 
       - name: Build site
         run: |
-          eleventy --mode production
-          # eleventy --path-prefix $PATH_PREFIX
+          npm run prod
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
