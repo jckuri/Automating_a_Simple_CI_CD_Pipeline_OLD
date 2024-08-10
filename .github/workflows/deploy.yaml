@@ -102,7 +102,7 @@ jobs:
 
   deploy:
     permissions: #write-all
-      contents: read
+      contents: write
       pages: write
       id-token: write
       # contents: read
