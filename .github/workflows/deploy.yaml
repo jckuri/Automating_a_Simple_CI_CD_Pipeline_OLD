@@ -67,7 +67,7 @@ jobs:
 
       - uses: actions/configure-pages@v4
         with: 
-          publish_dir: ./_site
+          path: "_site"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
