@@ -134,6 +134,13 @@ jobs:
           echo "# Deployment status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
           echo "Deployed ${{ github.ref }} to ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
 
+      - name: Report issue
+        run: |
+          gh auth login --with-token <<<"${{ secrets.GITHUB_TOKEN }}"
+          ISSUE_TITLE="issue title"
+          ISSUE_BODY="issue body"
+          gh issue comment "$ISSUE_TITLE" --body "$ISSUE_BODY"
+
   # deploy:
   #   environment: 
   #     name: github-pages
