@@ -91,7 +91,7 @@ jobs:
 
       - name: Build site
         run: |
-          npm run prod
+          npm run eleventy:prod
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
