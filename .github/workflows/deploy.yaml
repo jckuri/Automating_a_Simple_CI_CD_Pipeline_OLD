@@ -61,6 +61,8 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    env: 
+      PATH_PREFIX: ""
     timeout-minutes: 2
     steps:
       - uses: actions/checkout@v4
@@ -87,9 +89,11 @@ jobs:
 
       - name: Set PATH_PREFIX
         run: |
+          echo "Contens of PATH_PREFIX=$PATH_PREFIX"
           repository_name=$(echo "${{ github.repository }}" | cut -d '/' -f 2)
           PATH_PREFIX="/${repository_name}/"
-          echo "PATH_PREFIX=$PATH_PREFIX"
+          echo "PATH_PREFIX=$PATH_PREFIX" >> $GITHUB_ENV
+          echo "Contens of PATH_PREFIX=$PATH_PREFIX"
 
       - name: Build site
         run: |
