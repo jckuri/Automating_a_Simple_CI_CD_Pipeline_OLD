@@ -58,9 +58,49 @@ jobs:
           echo "URL_CHECKER_TIMEOUT = $URL_CHECKER_TIMEOUT"
           node script/url-checker.js -t $URL_CHECKER_TIMEOUT
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   timeout-minutes: 0.67
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/configure-pages@v4
+        with: 
+          publish_dir: ./_site
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with: 
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set PATH_PREFIX
+        run: |
+          repository_name=$(echo "${{ github.repository }}" | cut -d '/' -f 2)
+          PATH_PREFIX="/${repository_name}/"
+          echo "PATH_PREFIX=$PATH_PREFIX"
+
+      - name: Build site
+        run: |
+          eleventy --path-prefix $PATH_PREFIX
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: _site
+          name: build-artifact
+          if-no-files-found: error
 
   # deploy:
   #   runs-on: ubuntu-latest
