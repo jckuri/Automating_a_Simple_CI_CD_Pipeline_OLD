@@ -137,7 +137,7 @@ jobs:
       - name: Report issue
         run: |
           gh auth login --with-token <<<"${{ secrets.GITHUB_TOKEN }}"
-          ISSUE_TITLE="issue title"
+          ISSUE_TITLE="issue_title"
           ISSUE_BODY="issue body"
           gh issue comment "$ISSUE_TITLE" --body "$ISSUE_BODY"
 
