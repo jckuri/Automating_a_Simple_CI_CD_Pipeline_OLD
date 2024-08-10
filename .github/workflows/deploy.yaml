@@ -102,10 +102,10 @@ jobs:
 
   deploy:
     permissions: #write-all
-      # contents: read
+      contents: read
       pages: write
       id-token: write
-      contents: all
+      # contents: read
       pull-requests: write
       repository-projects: write
     environment:
