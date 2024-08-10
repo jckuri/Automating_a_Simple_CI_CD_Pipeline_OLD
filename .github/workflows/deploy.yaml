@@ -136,7 +136,7 @@ jobs:
           path: _site
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy@v1
+        uses: actions/deploy-pages@v4
         with: 
           provider: pages
           github-pages: ${{ secrets.GITHUB_TOKEN }}
