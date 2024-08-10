@@ -105,7 +105,7 @@ jobs:
       # contents: read
       pages: write
       id-token: write
-      contents: read, write
+      contents: all
       pull-requests: write
       repository-projects: write
     environment:
