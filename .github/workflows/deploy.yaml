@@ -142,7 +142,8 @@ jobs:
           ISSUE_TITLE="$DATE - Deployment: $STATUS"
           URL="${{ steps.deployment.outputs.page_url }}"
           ISSUE_BODY="URL: $URL"
-          gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
+          echo "Title: $ISSUE_TITLE. Body: $ISSUE_BODY."
+          # gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY"
 
   # deploy:
   #   environment: 
