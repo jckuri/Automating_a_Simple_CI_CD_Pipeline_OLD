@@ -103,48 +103,71 @@ jobs:
           if-no-files-found: error
 
   deploy:
-    environment: 
+    environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 2
 
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     # Upload entire repository
-      #     path: "."
-
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v4
-
-      - uses: actions/checkout@v3
-
-      - name: Download artifact
-        uses: actions/download-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: build-artifact
-          path: _site
+          # Upload entire repository
+          path: "_site"
 
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
-        with: 
-          provider: pages
-          github-pages: ${{ secrets.GITHUB_TOKEN }}
-          publish-dir: ./_site
 
-      # - name: Create deployment status issue
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: | 
-      #       const core = require('@actions/core')
+  # deploy:
+  #   environment: 
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 2
+
+  #   steps:
+  #     # - name: Checkout
+  #     #   uses: actions/checkout@v4
+
+  #     # - name: Setup Pages
+  #     #   uses: actions/configure-pages@v5
+
+  #     # - name: Upload artifact
+  #     #   uses: actions/upload-pages-artifact@v3
+  #     #   with:
+  #     #     # Upload entire repository
+  #     #     path: "."
+
+  #     # - name: Deploy to GitHub Pages
+  #     #   id: deployment
+  #     #   uses: actions/deploy-pages@v4
+
+  #     - uses: actions/checkout@v3
+
+  #     - name: Download artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: build-artifact
+  #         path: _site
+
+  #     - name: Deploy to GitHub Pages
+  #       uses: actions/deploy-pages@v4
+  #       with: 
+  #         provider: pages
+  #         github-pages: ${{ secrets.GITHUB_TOKEN }}
+  #         publish-dir: ./_site
+
+  #     # - name: Create deployment status issue
+  #     #   uses: actions/github-script@v6
+  #     #   with:
+  #     #     script: | 
+  #     #       const core = require('@actions/core')
       
