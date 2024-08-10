@@ -120,7 +120,7 @@ storybook-static
 
 # rollup.js default build output
 dist/
-_site/
+# _site/
 
 # Gatsby files
 .cache/
