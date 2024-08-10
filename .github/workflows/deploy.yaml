@@ -81,7 +81,9 @@ jobs:
             ${{ runner.os }}-node-
       
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npx @11ty/eleventy
 
       - name: Set PATH_PREFIX
         run: |
